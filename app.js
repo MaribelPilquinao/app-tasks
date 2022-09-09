@@ -1,6 +1,7 @@
 const express = require('express')
 
 // Routers
+const { tasksRouter } = require('./routes/tasks.routes')
 
 // Init our Express app
 const app = express()
@@ -9,6 +10,7 @@ const app = express()
 app.use(express.json())
 
 // Define endpoints
+app.use('/api/v1/tasks', tasksRouter)
 
 // Catch non-existing endpoints
 app.all('*', (req, res) => {
