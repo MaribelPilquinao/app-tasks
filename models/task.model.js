@@ -28,7 +28,7 @@ const Task = db.define('task', {
     },
     status: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         defaultValue: 'active',
     },
 })
