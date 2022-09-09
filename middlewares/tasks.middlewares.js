@@ -78,5 +78,5 @@ module.exports = {
     taskExists,
     taskIsActive,
     checkStatusParam,
-    compareFinishDate,
+    // compareFinishDate,
 }
