@@ -7,6 +7,9 @@ const { app } = require('./app')
 // Import database instance
 const { db } = require('./utils/database.util')
 
+// Import models relations
+const { initModels } = require('./models/initModels')
+
 // Using Environment Variables
 dotenv.config('.env')
 
@@ -15,6 +18,9 @@ const startServer = async () => {
     try {
         // Establish connection to database
         await db.authenticate()
+
+        //Establish relations
+        initModels()
 
         // Syncrhonize database
         await db.sync()

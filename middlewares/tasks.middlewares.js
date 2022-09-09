@@ -59,24 +59,8 @@ const checkStatusParam = (req, res, next) => {
     next()
 }
 
-// const compareFinishDate = async (req, res, next) => {
-//     const { task } = req
-
-//     const { finishDate } = req.body
-
-//     const { limitDate } = task
-
-//     if (limitDate >= finishDate) {
-//         await task.update({ status: 'completed', finishDate })
-//         return next()
-//     }
-//     await task.update({ status: 'late', finishDate })
-//     next()
-// }
-
 module.exports = {
     taskExists,
     taskIsActive,
     checkStatusParam,
-    // compareFinishDate,
 }

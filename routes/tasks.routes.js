@@ -1,8 +1,6 @@
 const express = require('express')
-const { moviesRouter } = require('../../relations-example/routes/movies.routes')
 
 // Controllers
-
 const {
     createTask,
     readAllTasks,

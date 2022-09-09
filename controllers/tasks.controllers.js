@@ -1,4 +1,5 @@
 // Import models
+const { User } = require('../models/user.model')
 const { Task } = require('../models/task.model')
 
 const createTask = async (req, res) => {
@@ -27,6 +28,10 @@ const readAllTasks = async (req, res) => {
                 'limitDate',
                 'status',
             ],
+            include: {
+                model: User,
+                attributes: ['id', 'name', 'email', 'status'],
+            },
         })
 
         res.status(200).json({
@@ -51,6 +56,10 @@ const readTaskByStatus = async (req, res) => {
                 'limitDate',
                 'status',
             ],
+            include: {
+                model: User,
+                attributes: ['id', 'name', 'email', 'status'],
+            },
         })
 
         res.status(200).json({
@@ -64,26 +73,30 @@ const readTaskByStatus = async (req, res) => {
 
 // This method need a fix
 const updateTaskById = async (req, res) => {
-    const { task } = req
+    try {
+        const { task } = req
 
-    const { finishDate } = req.body
+        const { finishDate } = req.body
 
-    const finishDateObject = new Date(finishDate)
+        const finishDateObject = new Date(finishDate)
 
-    const { limitDate } = task
+        const { limitDate } = task
 
-    if (limitDate >= finishDateObject) {
-        await task.update({ status: 'completed', finishDate: finishDateObject })
+        if (limitDate >= finishDateObject) {
+            await task.update({ status: 'completed', finishDate })
+            res.status(200).json({
+                status: 'success',
+                data: task,
+            })
+        }
+        await task.update({ status: 'late', finishDate })
         res.status(200).json({
             status: 'success',
             data: task,
         })
+    } catch (err) {
+        console.log(err)
     }
-    await task.update({ status: 'late', finishDate: finishDateObject })
-    res.status(200).json({
-        status: 'success',
-        data: task,
-    })
 }
 
 const deleteTaskById = async (req, res) => {
