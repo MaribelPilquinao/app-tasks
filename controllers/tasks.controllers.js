@@ -84,7 +84,7 @@ const updateTaskById = async (req, res) => {
 
         if (limitDate >= finishDateObject) {
             await task.update({ status: 'completed', finishDate })
-            res.status(200).json({
+            return res.status(200).json({
                 status: 'success',
                 data: task,
             })
